@@ -13,7 +13,8 @@ REPO_URL_LOCAL="localhost:5000"        # 私有仓库本地地址
 IMAGE_NAME="admin-java-server"                # 镜像名称
 CONTAINER_NAME="admin-container"                # 容器名称
 
-IMAGE_TAG="v_0.0.3"                 # 镜像标签
+IMAGE_TAG="v_0.0.6"                 # 镜像标签
+#IMAGE_TAG="latest"                 # 镜像标签
 USERNAME="admin"                   # Docker 仓库用户名
 PASSWORD="admin123"            # Docker 仓库密码
 DOCKERFILE_PATH="./Dockerfile"     # Dockerfile 文件路径（默认当前目录）
@@ -30,7 +31,7 @@ fi
 echo "Building Docker image..."
 cd yudao-server
 pwd
-docker build -t "$IMAGE_NAME:$IMAGE_TAG" -f "$DOCKERFILE_PATH" .
+docker build --platform linux/amd64 -t "$IMAGE_NAME:$IMAGE_TAG" -f "$DOCKERFILE_PATH" .
 if [ $? -ne 0 ]; then
     echo "Docker image build failed"
     exit 1
@@ -81,7 +82,7 @@ docker run -d --name $CONTAINER_NAME \
   -p 48080:48080 \
   -e SPRING_PROFILES_ACTIVE=dev \
   -v /work/projects/yudao-server:/root/logs/ \
-  $REPO_URL_LOCAL/$IMAGE_NAME
+  $REPO_URL_LOCAL/$IMAGE_NAME:$IMAGE_TAG
 echo "正在启动 yudao-server 容器中，需要等待 60 秒左右"
 
 
