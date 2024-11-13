@@ -10,7 +10,7 @@ echo "docker 运行本地包"
 # 预计等1分钟 出现 BUILD SUCCESS  即代表编译成功
 IMAGE_NAME="admin-java-server"                # 镜像名称
 CONTAINER_NAME="admin-container"                # 容器名称
-IMAGE_TAG="v_0.0.3"                 # 镜像标签
+IMAGE_TAG="v_0.0.6"                 # 镜像标签
 DOCKERFILE_PATH="./Dockerfile"     # Dockerfile 文件路径（默认当前目录）
 
 # 步骤 2：构建镜像
