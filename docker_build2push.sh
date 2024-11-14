@@ -6,7 +6,7 @@ REPO_URL="8.152.217.4:5000"        # 私有仓库地址
 REPO_URL_LOCAL="localhost:5000"        # 私有仓库本地地址 解决下载仓库报错 https 不支持的问题
 IMAGE_NAME="admin-java-server"                # 镜像名称
 CONTAINER_NAME="admin-container"                # 容器名称
-IMAGE_TAG="v_0.0.7"                 # 镜像标签 latest
+IMAGE_TAG="v_0.0.8"                 # 镜像标签 latest
 USERNAME="admin"                   # Docker 仓库用户名
 PASSWORD="admin123"            # Docker 仓库密码
 DOCKERFILE_PATH="./Dockerfile"     # Dockerfile 文件路径（默认当前目录）
@@ -14,7 +14,7 @@ DOCKERFILE_PATH="./Dockerfile"     # Dockerfile 文件路径（默认当前目�
 
 #步骤 1：清理缓存 准备重新构建
 echo "步骤 1：清理缓存 准备重新构建"
-#mvn clean
+mvn clean
 #mvn compile
 #首先开始打包
 mvn clean package -Dmaven.test.skip=true
@@ -88,8 +88,36 @@ sshpass -p "$PASSWORD" ssh -t -o StrictHostKeyChecking=no "$USERNAME@$SERVER_IP"
    docker run -d --name $CONTAINER_NAME -p 48080:48080 -e SPRING_PROFILES_ACTIVE=dev -v /work/projects/yudao-server:/root/logs/ $REPO_URL_LOCAL/$IMAGE_NAME:$IMAGE_TAG; \
    echo '正在启动 yudao-server 容器中，需要等待 60 秒左右'"
 
-if [ $? -ne 0 ]; then
-    echo "<<<<<<<-----ALL TASK   ERROR------>>>>>"
-    exit 1
-fi
-echo  "<<<<<<<-----ALL TASK   DONE------>>>>>"
+# 使用 sshpass 连接到远程服务器并执行命令
+#sshpass -p "$PASSWORD" ssh -t -o StrictHostKeyChecking=no "$USERNAME@$SERVER_IP" \
+#  "echo '登录阿里云 successfully--> Remote command executed successfully'; \
+#   echo '阿里云 docker list ⬆⬇️'; \
+#   docker images; \
+#   echo '阿里云 docker list ⬆️'; \
+#   echo '下载镜像 docker pull $REPO_URL_LOCAL/$IMAGE_NAME:$IMAGE_TAG'; \
+#   docker pull '$REPO_URL_LOCAL/$IMAGE_NAME:$IMAGE_TAG'; \
+#   if [ $? -ne 0 ]; then \
+#     echo '下载镜像失败'; \
+#     exit 1; \
+#   fi; \
+#   echo '停止-----> $CONTAINER_NAME 容器'; \
+#   docker stop $CONTAINER_NAME || true; \
+#   if [ $? -ne 0 ] && [ $? -ne 127 ]; then \
+#     echo '停止容器失败'; \
+#     exit 1; \
+#   fi; \
+#   echo '删除------> $CONTAINER_NAME 容器'; \
+#   docker rm $CONTAINER_NAME || true; \
+#   if [ $? -ne 0 ] && [ $? -ne 127 ]; then \
+#     echo '删除容器失败'; \
+#     exit 1; \
+#   fi; \
+#   echo '开始启动 $CONTAINER_NAME 容器'; \
+#   docker run -d --name $CONTAINER_NAME -p 48080:48080 -e SPRING_PROFILES_ACTIVE=dev -v /work/projects/yudao-server:/root/logs/ $REPO_URL_LOCAL/$IMAGE_NAME:$IMAGE_TAG; \
+#   if [ $? -ne 0 ]; then \
+#     echo '启动容器失败'; \
+#     exit 1; \
+#   fi; \
+#   echo '正在启动 yudao-server 容器中，需要等待 60 秒左右'; \
+#   sleep 60; \
+#   echo '容器已启动'"
