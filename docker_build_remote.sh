@@ -13,16 +13,15 @@ PASSWORD="v#b*UDkyjkqcwF5"     #服务器密码
 DEPLOY_DIR="/work/projects/yudao-server" #项目部署路径
 
 
-#步骤 1：清理缓存 准备重新构建
-#echo "步骤 1：清理缓存 准备重新构建"
-#mvn clean
-##mvn compile
-##首先开始打包
-#mvn clean package -Dmaven.test.skip=true
+echo "步骤 1：清理缓存 准备重新构建"
+mvn clean
+#mvn compile
+#首先开始打包
+mvn clean package -Dmaven.test.skip=true
 
 
 echo "步骤 #2 rsync 同步 jar 和 Dockerfile 到线上服务器"
-sshpass -p "$PASSWORD" rsync -avz --delete yudao-server/target/yudao-server.jar  $USERNAME@$SERVER_IP:$DEPLOY_DIR/target
+sshpass -p "$PASSWORD" rsync -avz --progress  --delete yudao-server/target/yudao-server.jar  $USERNAME@$SERVER_IP:$DEPLOY_DIR/target
 sshpass -p "$PASSWORD" rsync -avz --delete yudao-server/Dockerfile  $USERNAME@$SERVER_IP:$DEPLOY_DIR
 if [ $? -eq 0 ]; then
   echo "同步完成，文件已上传到服务器"
