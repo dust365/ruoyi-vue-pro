@@ -105,10 +105,12 @@ public class YudaoWebAutoConfiguration implements WebMvcConfigurer {
 
     /**
      * 创建 DemoFilter Bean，演示模式
+     * havingValue 标识期望值
      */
     @Bean
-    @ConditionalOnProperty(value = "yudao.demo", havingValue = "false")
+    @ConditionalOnProperty(value = "yudao.demo", havingValue = "true")
     public FilterRegistrationBean<DemoFilter> demoFilter() {
+        System.out.println("demoFilter 演示模式 demoFilter --开始注册 ");
         return createFilterBean(new DemoFilter(), WebFilterOrderEnum.DEMO_FILTER);
     }
 
