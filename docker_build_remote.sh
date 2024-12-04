@@ -9,7 +9,7 @@ IMAGE_TAG="v_0.0.9"                 # 镜像标签 latest
 DOCKERFILE_PATH="./Dockerfile"     # Dockerfile 文件路径（默认当前目录）
 SERVER_IP="8.152.217.4"       #服务器信息
 USERNAME="root"                #服务器账号
-PASSWORD="v#b*UDkyjkqcwF5"     #服务器密码
+PASSWORD="a7TnpNMdYB5@XGd"     #服务器密码
 DEPLOY_DIR="/work/projects/yudao-server" #项目部署路径
 
 
