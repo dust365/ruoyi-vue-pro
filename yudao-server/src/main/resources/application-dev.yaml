@@ -65,10 +65,11 @@ spring:
     host: 172.24.31.26 # 私有IP
 #    host: 400-infra.server.iocoder.cn  # 地址
 #    host: localhost # 地址
+#    host: 127.0.0.1 # 地址
 #    host: 192.168.68.26 # 地址
     port: 6379 # 端口
     database: 1 # 数据库索引
-#    password: 123456 # 密码，建议生产环境开启
+    password: tong9527 # 密码，建议生产环境开启
 
 --- #################### 定时任务相关配置 ####################
 
