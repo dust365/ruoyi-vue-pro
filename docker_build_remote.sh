@@ -5,7 +5,7 @@ REPO_URL="8.152.217.4:5000"        # 私有仓库地址
 REPO_URL_LOCAL="localhost:5000"        # 私有仓库本地地址 解决下载仓库报错 https 不支持的问题
 IMAGE_NAME="admin-java-server"                # 镜像名称
 CONTAINER_NAME="admin-container"                # 容器名称
-IMAGE_TAG="v_0.0.9"                 # 镜像标签 latest
+IMAGE_TAG="v_1.1.1"                 # 镜像标签 latest
 DOCKERFILE_PATH="./Dockerfile"     # Dockerfile 文件路径（默认当前目录）
 SERVER_IP="8.152.217.4"       #服务器信息
 USERNAME="root"                #服务器账号
@@ -56,7 +56,7 @@ sshpass -p "$PASSWORD" ssh -t -o StrictHostKeyChecking=no "$USERNAME@$SERVER_IP"
      exit 1; \
    fi; \
    echo '开始启动 $CONTAINER_NAME 容器'; \
-   docker run -d --name $CONTAINER_NAME -p 48080:48080 -e SPRING_PROFILES_ACTIVE=dev -v /work/projects/yudao-server:/root/logs/  $IMAGE_NAME:$IMAGE_TAG; \
+   docker run -d --name $CONTAINER_NAME --network host  -p 48080:48080 -e SPRING_PROFILES_ACTIVE=dev -v /work/projects/yudao-server:/root/logs/  $IMAGE_NAME:$IMAGE_TAG; \
    if [ $? -ne 0 ]; then \
      echo '启动容器失败'; \
      exit 1; \
