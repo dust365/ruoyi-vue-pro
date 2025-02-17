@@ -56,7 +56,7 @@ sshpass -p "$PASSWORD" ssh -t -o StrictHostKeyChecking=no "$USERNAME@$SERVER_IP"
      exit 1; \
    fi; \
    echo '开始启动 $CONTAINER_NAME 容器'; \
-   docker run -d --name $CONTAINER_NAME --network host  -p 48080:48080 -e SPRING_PROFILES_ACTIVE=dev -v /work/projects/yudao-server:/root/logs/  $IMAGE_NAME:$IMAGE_TAG; \
+   docker run -d --name $CONTAINER_NAME   -p 48080:48080 -e SPRING_PROFILES_ACTIVE=dev -v /work/projects/yudao-server:/root/logs/  $IMAGE_NAME:$IMAGE_TAG; \
    if [ $? -ne 0 ]; then \
      echo '启动容器失败'; \
      exit 1; \
