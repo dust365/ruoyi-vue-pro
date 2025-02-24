@@ -3813,3 +3813,28 @@ INSERT INTO `yudao_demo03_student` (`id`, `name`, `sex`, `birthday`, `descriptio
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+
+
+
+--  ------------- 日志捞取建表语句 task ---------
+DROP TABLE IF EXISTS `client_log_task`;
+CREATE TABLE client_log_task
+(
+    task_id        INT AUTO_INCREMENT PRIMARY KEY COMMENT '任务id',
+    app_name       VARCHAR(255) NOT NULL COMMENT '应用名称',
+    user_uid       BIGINT       NOT NULL COMMENT '用户id',
+    operator       VARCHAR(255) NOT NULL COMMENT '操作者',
+    operation_time DATETIME     NOT NULL COMMENT '操作时间',
+    task_status    TINYINT      DEFAULT 0  COMMENT '任务状态:0.全部 1.进行中 2.完成 3.失败/超时',
+    result_url     VARCHAR(255) COMMENT '日志结果链接'
+) ENGINE = InnoDB AUTO_INCREMENT = 10  CHARACTER SET = utf8mb4  COLLATE = utf8mb4_unicode_ci    COMMENT = '日志捞取建表';
+
+BEGIN;
+INSERT INTO client_log_task (app_name, user_uid, operator, operation_time, task_status,result_url)
+VALUES
+    ( 'loole', 2420686, '张三', '2025-02-13 22:12:23', 1,null),
+    ( 'loole', 732947, '李四', '2025-02-10 22:16:12', 2,'www.baidu.com'),
+    ('loole', 5962042, '陈辉', '2025-02-05 18:45:59', 3,null);
+
+COMMIT;

@@ -3,8 +3,8 @@ spring:
     name: yudao-server
 
   profiles:
-#    active: local
-    active: dev
+    active: local
+#    active: dev
 
   main:
     allow-circular-references: true # 允许循环依赖，因为项目是三层架构，无法避免这个情况。
@@ -222,6 +222,7 @@ yudao:
   security:
     permit-all_urls:
       - /admin-api/mp/open/** # 微信公众号开放平台，微信回调接口，不需要登录
+      - /admin-api/** # 微信公众号开放平台，微信回调接口，不需要登录
   websocket:
     enable: true # websocket的开关
     path: /infra/ws # 路径
