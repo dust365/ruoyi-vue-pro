@@ -3813,3 +3813,56 @@ INSERT INTO `yudao_demo03_student` (`id`, `name`, `sex`, `birthday`, `descriptio
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+
+
+
+--  ------------- 日志捞取建表语句 task ---------
+-- 日志捞取建表语句 task
+DROP TABLE IF EXISTS `client_log_task`;
+
+CREATE TABLE `client_log_task` (
+                                   `task_id`        INT AUTO_INCREMENT PRIMARY KEY COMMENT '任务ID',
+                                   `app_name`       VARCHAR(255) NOT NULL COMMENT '应用名称',
+                                   `user_uid`       BIGINT       NOT NULL COMMENT '用户ID',
+                                   `operator`       VARCHAR(255) NOT NULL COMMENT '操作者',
+                                   `operation_time` DATETIME     NOT NULL COMMENT '操作时间',
+                                   `task_status`    TINYINT      DEFAULT 0 COMMENT '任务状态: 0.全部 1.进行中 2.完成 3.失败/超时',
+                                   `result_url`     VARCHAR(255) COMMENT '日志结果链接',
+                                   `create_time`    DATETIME     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                   `update_time`    DATETIME     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间',
+                                   `creator`        VARCHAR(64)  DEFAULT 'system' COMMENT '创建者，默认为 system',
+                                   `updater`        VARCHAR(64)  DEFAULT 'system' COMMENT '更新者，默认为 system',
+                                   `deleted`        BIT(1)       DEFAULT 0 COMMENT '是否删除：0-未删除，1-已删除',
+                                   `tenant_id`      BIGINT       DEFAULT NULL COMMENT '租户ID'
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 10
+  CHARACTER SET = utf8mb4
+  COLLATE = utf8mb4_unicode_ci
+    COMMENT = '日志捞取任务表';
+
+-- 插入测试数据
+INSERT INTO `client_log_task` (
+    `app_name`,
+    `user_uid`,
+    `operator`,
+    `operation_time`,
+    `task_status`,
+    `result_url`,
+    `create_time`,
+    `update_time`,
+    `creator`,
+    `updater`,
+    `deleted`,
+    `tenant_id`
+) VALUES
+-- 测试数据 1：任务完成，有日志结果链接
+('TestApp', 1001, '张三', '2025-03-01 10:00:00', 2, 'http://example.com/logs/123', '2025-03-01 09:59:00', '2025-03-01 10:01:00', 'admin', 'admin', 0, 1),
+-- 测试数据 2：任务进行中，无日志结果链接
+('TestApp', 1002, '李四', '2025-03-02 11:00:00', 1, NULL, '2025-03-02 10:59:00', '2025-03-02 11:00:00', 'admin', 'admin', 0, 1),
+-- 测试数据 3：任务失败，无日志结果链接
+('TestApp', 1003, '王五', '2025-03-03 12:00:00', 3, NULL, '2025-03-03 11:59:00', '2025-03-03 12:01:00', 'admin', 'admin', 0, 1),
+-- 测试数据 4：任务未开始（状态为 0），无日志结果链接
+('TestApp', 1004, '赵六', '2025-03-04 13:00:00', 0, NULL, '2025-03-04 12:59:00', '2025-03-04 13:00:00', 'admin', 'admin', 0, 1),
+-- 测试数据 5：已删除的任务
+('TestApp', 1005, '孙七', '2025-03-05 14:00:00', 2, 'http://example.com/logs/456', '2025-03-05 13:59:00', '2025-03-05 14:01:00', 'admin', 'admin', 1, 1);
