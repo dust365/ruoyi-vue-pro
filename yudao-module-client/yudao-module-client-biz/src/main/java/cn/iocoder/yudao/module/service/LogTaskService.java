@@ -1,4 +1,4 @@
-package cn.iocoder.yudao.module.service.logtask;
+package cn.iocoder.yudao.module.service;
 
 import java.util.*;
 

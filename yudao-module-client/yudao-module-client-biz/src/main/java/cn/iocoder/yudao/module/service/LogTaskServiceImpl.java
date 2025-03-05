@@ -1,4 +1,4 @@
-package cn.iocoder.yudao.module.service.logtask;
+package cn.iocoder.yudao.module.service;
 
 import cn.iocoder.yudao.module.vo.LogTaskPageReqVO;
 import cn.iocoder.yudao.module.vo.LogTaskSaveReqVO;
